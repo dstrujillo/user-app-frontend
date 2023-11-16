@@ -33,7 +33,7 @@ const Login = () => {
             </Typography>
             <TextField
               fullWidth
-              type='email'
+              type="email"
               label="Email"
               placeholder="Type your e-mail"
               size="small"
