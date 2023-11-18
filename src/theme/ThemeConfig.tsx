@@ -1,12 +1,13 @@
 import { ThemeProvider, createTheme, CssBaseline } from '@mui/material';
 import { ReactNode } from 'react';
-
+import { useAppSelector } from '@/hooks/reduxHooks';
 interface ThemeConfigProps {
   children: ReactNode;
 }
 
 const ThemeConfig = ({ children }: ThemeConfigProps) => {
-  const mode : 'light' | 'dark' = 'light';
+  const themeMode = useAppSelector((state) => state.settings.themeMode);
+  //const themeMode = 'light';
   const theme = createTheme({
     palette: {
       primary: {
@@ -20,15 +21,15 @@ const ThemeConfig = ({ children }: ThemeConfigProps) => {
         dark: '#B62B39'
       },
       background: {
-        default: mode === 'light' ? '#F5F5F5' : '#212121'
+        default: themeMode === 'light' ? '#F5F5F5' : '#212121'
       },
-      mode: mode
+      mode: themeMode
     },
     typography: {
       fontFamily: 'Lexend, sans-serif'
     },
-    components:{
-      MuiButton:{
+    components: {
+      MuiButton: {
         styleOverrides: {
           root: {
             borderRadius: '500px'
@@ -38,7 +39,7 @@ const ThemeConfig = ({ children }: ThemeConfigProps) => {
           }
         }
       },
-      MuiOutlinedInput:{
+      MuiOutlinedInput: {
         styleOverrides: {
           root: {
             borderRadius: '500px'

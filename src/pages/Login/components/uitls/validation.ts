@@ -2,7 +2,10 @@ import * as yup from 'yup';
 import { LoginFormDto } from '../LoginForm/dtos/loginFormDtos';
 
 export const validationSchema: yup.ObjectSchema<LoginFormDto> = yup.object({
-  email: yup.string().email('El email debe ser válido').required('El email es requerido'),
+  email: yup
+    .string()
+    .email('El email debe ser válido')
+    .required('El email es requerido'),
   password: yup
     .string()
     .min(6, 'La contraseña debe tener al menos 6 caracteres')
