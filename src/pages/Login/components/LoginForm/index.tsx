@@ -3,7 +3,7 @@ import { useState } from 'react';
 import CustomTextField from '@/components/CustomTextField';
 import { Person, Lock, Visibility, VisibilityOff } from '@mui/icons-material';
 import { useFormik } from 'formik';
-import { validationSchema } from '../uitls/validation';
+import { validationSchema } from '../utils/validation';
 import { LoginFormDto } from './dtos/loginFormDtos';
 
 interface LoginFormProps {
@@ -36,6 +36,8 @@ const LoginForm = ({ onSubmitMio = () => {} }: LoginFormProps) => {
           name: 'email',
           label: 'Email',
           placeholder: 'Type your e-mail',
+          error: Boolean(formik.errors.email),
+          helperText: formik.errors.email,
           InputProps: {
             startAdornment: (
               <Person sx={{ color: (theme) => theme.palette.grey[500] }} />
@@ -50,6 +52,8 @@ const LoginForm = ({ onSubmitMio = () => {} }: LoginFormProps) => {
           type: showPassword ? 'text' : 'password',
           label: 'Password',
           placeholder: 'Type your Password',
+          error: Boolean(formik.errors.password),
+          helperText: formik.errors.password,
           InputProps: {
             startAdornment: (
               <Lock sx={{ color: (theme) => theme.palette.grey[500] }} />

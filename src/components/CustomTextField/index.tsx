@@ -15,7 +15,7 @@ const CustomTextField = ({
   formControlProps = {}
 }: CustomTextFieldProps) => {
   return (
-    <FormControl fullWidth sx={{ mb: 2 }} {...formControlProps}>
+    <FormControl fullWidth error sx={{ mb: 2 }} {...formControlProps}>
       <TextField size="small" {...textFieldProps} />
     </FormControl>
   );
