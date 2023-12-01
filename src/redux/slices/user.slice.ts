@@ -6,19 +6,19 @@ interface UserState {
 }
 
 const initialState: UserState = {
-    accessToken: null
+  accessToken: null
 };
 
 const userSlice = createSlice({
   name: 'userSlice',
   initialState,
   reducers: {
-   setAccessToken(state, action: PayloadAction<string | null>) => {
+    setAccessToken(state, action: PayloadAction<string | null>) {
       state.accessToken = action.payload;
     }
   }
 });
 
-export const { setThemeMode } = settingsReducer.actions;
+export const { setAccessToken } = userSlice.actions;
 
-export default settingsReducer;
+export default userSlice;
