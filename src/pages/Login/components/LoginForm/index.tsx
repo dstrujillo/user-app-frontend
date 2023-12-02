@@ -1,4 +1,4 @@
-import { Box, Button, IconButton } from '@mui/material';
+import { Box, Button, CircularProgress, IconButton } from '@mui/material';
 import { useState } from 'react';
 import CustomTextField from '@/components/CustomTextField';
 import { Person, Lock, Visibility, VisibilityOff } from '@mui/icons-material';
@@ -7,10 +7,14 @@ import { validationSchema } from '../utils/validation';
 import { LoginFormDto } from './dtos/loginFormDtos';
 
 interface LoginFormProps {
+  isLoading?: boolean;
   onSubmitMio?: (values: LoginFormDto) => void;
 }
 
-const LoginForm = ({ onSubmitMio = () => {} }: LoginFormProps) => {
+const LoginForm = ({
+  isLoading = false,
+  onSubmitMio = () => {}
+}: LoginFormProps) => {
   const [showPassword, setShowPassword] = useState(false);
   /*const [formData, setFormData] = useState<{ email: string; password: string }>(
     {
@@ -69,7 +73,10 @@ const LoginForm = ({ onSubmitMio = () => {} }: LoginFormProps) => {
       />
       <Box display="flex" justifyContent="center">
         <Button variant="contained" type="submit">
-          Login
+          Login{' '}
+          {isLoading && (
+            <CircularProgress size={20} sx={{ color: 'white', ml: 1 }} />
+          )}
         </Button>
       </Box>
     </form>

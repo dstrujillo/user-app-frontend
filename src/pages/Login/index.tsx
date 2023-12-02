@@ -1,5 +1,5 @@
 import { CardContent, Container } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '@/hooks/reduxHooks';
 import { useLoginMutation } from '@/redux/services/user.service';
 import LoginForm from './components/LoginForm';
@@ -8,18 +8,32 @@ import {
   StyledCard,
   StyledTitle
 } from './components/styledComponents';
+import { useSnackbar } from 'notistack';
 
 import { LoginFormDto } from './components/LoginForm/dtos/loginFormDtos';
 import { setAccessToken } from '@/redux/slices/user.slice';
 
 const Login = () => {
-  const [login] = useLoginMutation();
+  const [login, { isLoading }] = useLoginMutation();
+
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const { enqueueSnackbar } = useSnackbar();
+
   const handleSumbit = async (values: LoginFormDto) => {
-    const response = await login(values).unwrap();
-    dispatch(setAccessToken(response.accessToken));
-    navigate('/');
+    try {
+      const response = await login(values).unwrap();
+      enqueueSnackbar('Login exitoso', {
+        variant: 'success',
+        transitionDuration: 3000,
+        autoHideDuration: 1500
+      });
+      dispatch(setAccessToken(response.accessToken));
+      navigate('/');
+    } catch (e) {
+      enqueueSnackbar('Hubo un error, por favor intente nuevamente'),
+        { variant: 'error' };
+    }
   };
 
   return (
@@ -28,7 +42,8 @@ const Login = () => {
         <StyledCard>
           <CardContent>
             <StyledTitle variant="h5">Login</StyledTitle>
-            <LoginForm onSubmitMio={handleSumbit} />
+            <LoginForm isLoading={isLoading} onSubmitMio={handleSumbit} />
+            <Link to="/signup">Signup</Link>
           </CardContent>
         </StyledCard>
       </StyledBox>

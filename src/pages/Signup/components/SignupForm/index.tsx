@@ -1,4 +1,4 @@
-import { Box, Button, IconButton } from '@mui/material';
+import { Box, Button, CircularProgress, IconButton } from '@mui/material';
 import { useState } from 'react';
 import CustomTextField from '@/components/CustomTextField';
 import { Person, Lock, Visibility, VisibilityOff } from '@mui/icons-material';
@@ -7,10 +7,14 @@ import { validationSchema } from '../utils/validation';
 import { SignupFormDto } from './dtos/signupFormDtos';
 
 interface SignupFormProps {
+  isLoading?: boolean;
   onSubmitMio?: (values: SignupFormDto) => void;
 }
 
-const SignupForm = ({ onSubmitMio = () => {} }: SignupFormProps) => {
+const SignupForm = ({
+  isLoading = false,
+  onSubmitMio = () => {}
+}: SignupFormProps) => {
   const [showPassword, setShowPassword] = useState(false);
   /*const [formData, setFormData] = useState<{ email: string; password: string }>(
     {
@@ -85,7 +89,10 @@ const SignupForm = ({ onSubmitMio = () => {} }: SignupFormProps) => {
       />
       <Box display="flex" justifyContent="center">
         <Button variant="contained" type="submit">
-          Login
+          Signup{' '}
+          {isLoading && (
+            <CircularProgress size={20} sx={{ color: 'white', ml: 1 }} />
+          )}
         </Button>
       </Box>
     </form>

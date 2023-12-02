@@ -1,5 +1,5 @@
 import { CardContent, Container } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 // import { useAppDispatch } from '@/hooks/reduxHooks';
 import { useSignupMutation } from '@/redux/services/user.service';
 import SignupForm from './components/SignupForm';
@@ -10,19 +10,28 @@ import {
 } from './components/styledComponents';
 
 import { SignupFormDto } from './components/SignupForm/dtos/signupFormDtos';
+import { useSnackbar } from 'notistack';
 // import { setAccessToken } from '@/redux/slices/user.slice';
 
 const Signup = () => {
-  const [signup] = useSignupMutation();
+  const [signup, { isLoading }] = useSignupMutation();
   // const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const { enqueueSnackbar } = useSnackbar();
+
   const handleSumbit = async (values: SignupFormDto) => {
     try {
       const response = await signup(values).unwrap();
-      console.log(response);
+      enqueueSnackbar('Login exitoso', {
+        variant: 'success',
+        transitionDuration: 3000,
+        autoHideDuration: 1500
+      });
       navigate('/login');
     } catch (err) {
       console.log(err);
+      enqueueSnackbar('Hubo un error, por favor intente nuevamente'),
+        { variant: 'error' };
     }
   };
 
@@ -32,7 +41,8 @@ const Signup = () => {
         <StyledCard>
           <CardContent>
             <StyledTitle variant="h5">Signup</StyledTitle>
-            <SignupForm onSubmitMio={handleSumbit} />
+            <SignupForm isLoading={isLoading} onSubmitMio={handleSumbit} />
+            <Link to="/login">Login</Link>
           </CardContent>
         </StyledCard>
       </StyledBox>

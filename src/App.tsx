@@ -21,6 +21,7 @@
 
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
+import { SnackbarProvider } from 'notistack';
 
 import ThemeConfig from '@/theme/ThemeConfig';
 import RouterConfig from '@/routes/RouterConfig';
@@ -31,7 +32,12 @@ const App = () => {
     <Provider store={store}>
       <PersistGate persistor={persistor}>
         <ThemeConfig>
-          <RouterConfig />
+          <SnackbarProvider
+            autoHideDuration={1500}
+            anchorOrigin={{ horizontal: 'center', vertical: 'top' }}
+          >
+            <RouterConfig />
+          </SnackbarProvider>
         </ThemeConfig>
       </PersistGate>
     </Provider>
