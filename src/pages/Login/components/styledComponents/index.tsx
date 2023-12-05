@@ -1,17 +1,8 @@
-import {
-  Card,
-  CardContent,
-  Container,
-  Box,
-  Typography,
-  TextField,
-  Button,
-  IconButton
-} from '@mui/material';
+import { Card, Box, Typography } from '@mui/material';
 
 import { styled } from '@mui/material';
 
-export const StyledBox = styled(Box)(({ theme }) => {
+export const StyledBox = styled(Box)(() => {
   return {
     display: 'flex',
     height: '100vh',

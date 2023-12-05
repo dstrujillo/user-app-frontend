@@ -1,5 +1,11 @@
 import { CircularProgress } from '@mui/material';
-import { LazyExoticComponent, lazy, Suspense, Fragment } from 'react';
+import {
+  LazyExoticComponent,
+  lazy,
+  Suspense,
+  Fragment,
+  ReactNode
+} from 'react';
 //import DashboardLayout from '@/layouts/DashboardLayout';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 //import Home from '@/pages/Home';

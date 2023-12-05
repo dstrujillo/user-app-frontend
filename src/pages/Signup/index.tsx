@@ -21,7 +21,7 @@ const Signup = () => {
 
   const handleSumbit = async (values: SignupFormDto) => {
     try {
-      const response = await signup(values).unwrap();
+      await signup(values).unwrap();
       enqueueSnackbar('Login exitoso', {
         variant: 'success',
         transitionDuration: 3000,
