@@ -31,6 +31,10 @@ const routes: RouteObject[] = [
         element: lazy(async () => await import('@/pages/Products'))
       },
       {
+        path: '/user/:id',
+        element: lazy(async () => await import('@/pages/User'))
+      },
+      {
         path: '*',
         element: lazy(async () => await import('@/pages/NotFound'))
       }

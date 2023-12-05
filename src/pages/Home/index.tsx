@@ -1,4 +1,5 @@
 import { useGetUsersQuery } from '@/redux/services/user.service';
+import { Link } from 'react-router-dom';
 import { Card, Container } from '@mui/material';
 
 const Home = () => {
@@ -12,9 +13,15 @@ const Home = () => {
 
       {user.map((user: { name: string; email: string; _id: string }) => (
         <Container key={user._id} maxWidth="lg" sx={{ mt: 1, mb: 1 }}>
-          <Card key={user._id}>
-            {user.name} : {user.email}
-          </Card>
+          <Link
+            key={user._id}
+            to={`/user/${user._id}`}
+            style={{ textDecoration: 'none' }}
+          >
+            <Card key={user._id} sx={{ pt: 1, pb: 1, pl: 2 }}>
+              {user.name} : {user.email}
+            </Card>
+          </Link>
         </Container>
       ))}
       <br />
