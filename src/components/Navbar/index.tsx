@@ -12,8 +12,8 @@ import {
   DialogActions,
   DialogTitle
 } from '@mui/material';
-import MenuIcon from '@mui/icons-material/menu';
-import { LightMode, DarkMode } from '@mui/icons-material';
+// import  from '@mui/icons-material/menu';
+import { LightMode, DarkMode, Menu } from '@mui/icons-material';
 //import { Switch } from '@mui/material';
 
 import { useAppSelector, useAppDispatch } from '@/hooks/reduxHooks';
@@ -52,7 +52,7 @@ export default function ButtonAppBar() {
             aria-label="menu"
             sx={{ mr: 2 }}
           >
-            <MenuIcon />
+            <Menu />
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Users App
