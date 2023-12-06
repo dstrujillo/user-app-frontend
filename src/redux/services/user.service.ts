@@ -1,44 +1,36 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import {
+  createApi,
+  fetchBaseQuery,
+  BaseQueryFn
+} from '@reduxjs/toolkit/query/react';
 // import type { BaseQueryFn } from '@reduxjs/toolkit/query/react';
 
 import { RootState } from '../store';
+import { setAccessToken } from '../slices/user.slice';
 
-/*
-const customFetchQuery: BaseQueryFn<string, unknown, unknown> = async (
-  arg,
-  api,
-  extraOptions
-) => {
-  const result = fetchBaseQuery({
-    baseUrl: 'http://localhost:3000/api/v1/user',
-    prepareHeaders: (headers, { getState }) => {
-      const state = getState() as RootState;
-      const { accessToken } = state.userSlice;
-      if (accessToken) {
-        headers.set('Authorization', accessToken);
-      }
-      return headers;
+const baseQuery = fetchBaseQuery({
+  baseUrl: `${import.meta.env.VITE_API_URL}/api/v1/user`,
+  prepareHeaders: (headers, { getState }) => {
+    const state = getState() as RootState;
+    const { accessToken } = state.userSlice;
+    if (accessToken) {
+      headers.set('Authorization', accessToken);
     }
-  });
-  if (result?.error !== undefined && result?.error?.status === 401) {
+    return headers;
+  }
+});
+
+const customBaseQuery: BaseQueryFn = async (args, api, extraOptions) => {
+  const result = await baseQuery(args, api, extraOptions);
+  if (result.error?.status === 401) {
+    api.dispatch(setAccessToken(null));
   }
   return result;
 };
-*/
 
 const userApi = createApi({
   reducerPath: 'userApi',
-  baseQuery: fetchBaseQuery({
-    baseUrl: `${import.meta.env.VITE_API_URL}/api/v1/user`,
-    prepareHeaders: (headers, { getState }) => {
-      const state = getState() as RootState;
-      const { accessToken } = state.userSlice;
-      if (accessToken) {
-        headers.set('Authorization', accessToken);
-      }
-      return headers;
-    }
-  }),
+  baseQuery: customBaseQuery,
   endpoints: (builder) => ({
     login: builder.mutation({
       query: (body) => ({
